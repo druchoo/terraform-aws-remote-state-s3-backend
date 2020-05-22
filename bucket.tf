@@ -31,6 +31,7 @@ resource "aws_kms_key" "replica" {
 resource "aws_iam_role" "replication" {
   count = local.replication_role_count
 
+  name        = var.iam_role_name
   name_prefix = var.iam_role_name_prefix
 
   assume_role_policy = <<POLICY
@@ -52,7 +53,9 @@ POLICY
 }
 
 resource "aws_iam_policy" "replication" {
-  count       = local.replication_role_count
+  count = local.replication_role_count
+
+  name        = var.iam_policy_name
   name_prefix = var.iam_policy_name_prefix
 
   policy = <<POLICY
@@ -144,6 +147,7 @@ data "aws_region" "replica" {
 resource "aws_s3_bucket" "replica" {
   provider = aws.replica
 
+  bucket        = var.replica_bucket_name
   bucket_prefix = var.replica_bucket_prefix
   region        = data.aws_region.replica.name
   force_destroy = var.s3_bucket_force_destroy
@@ -190,6 +194,7 @@ resource "aws_s3_bucket_public_access_block" "replica" {
 }
 
 resource "aws_s3_bucket" "state" {
+  bucket        = var.state_bucket_name
   bucket_prefix = var.state_bucket_prefix
   acl           = "private"
   force_destroy = var.s3_bucket_force_destroy
