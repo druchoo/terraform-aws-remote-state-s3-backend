@@ -83,6 +83,8 @@ See [the official document](https://www.terraform.io/docs/backends/types/s3.html
 | iam\_role\_arn | Use IAM role of specified ARN for s3 replication instead of creating it. | string | `"null"` | no |
 | iam\_role\_name | The name of the role. Conflicts with iam_role_name_prefix. | string | `"null"` | no |
 | iam\_role\_name\_prefix | Creates a unique name beginning with the specified prefix. | string | `"remote-state-replication-role"` | no |
+| kms\_key\_alias | The display name of the KMS key alias. | "null" | `"null"` | no |
+| kms\_key\_replica\_alias | The display name of the replica KMS key alias. | string | `"null"` | no |
 | kms\_key\_deletion\_window\_in\_days | Duration in days after which the key is deleted after destruction of the resource, must be between 7 and 30 days. | string | `"30"` | no |
 | kms\_key\_description | The description of the key as viewed in AWS console. | string | `"The key used to encrypt the remote state bucket."` | no |
 | kms\_key\_enable\_key\_rotation | Specifies whether key rotation is enabled. | string | `"true"` | no |
