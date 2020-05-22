@@ -42,9 +42,19 @@ variable "kms_key_enable_key_rotation" {
 #---------------------------------------------------------------------------------------------------
 # S3 Buckets
 #---------------------------------------------------------------------------------------------------
+variable "state_bucket_name" {
+  description = "Creates a state bucket with specified name. Conflicts with state_bucket_prefix."
+  default     = null
+}
+
 variable "state_bucket_prefix" {
   description = "Creates a unique state bucket name beginning with the specified prefix."
   default     = "tf-remote-state"
+}
+
+variable "replica_bucket_name" {
+  description = "Creates a replica bucket with specified name. Conflicts with replica_bucket_prefix."
+  default     = null
 }
 
 variable "replica_bucket_prefix" {
@@ -57,9 +67,19 @@ variable "iam_role_arn" {
   default     = null
 }
 
+variable "iam_role_name" {
+  description = "The name of the role. Conflicts with iam_role_name_prefix."
+  default     = null
+}
+
 variable "iam_role_name_prefix" {
   description = "Creates a unique name beginning with the specified prefix."
   default     = "remote-state-replication-role"
+}
+
+variable "iam_policy_name" {
+  description = "The name of the policy. Conflicts with iam_policy_name_prefix."
+  default     = "remote-state-replication-policy"
 }
 
 variable "iam_policy_name_prefix" {
