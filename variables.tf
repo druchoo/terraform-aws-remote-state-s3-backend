@@ -24,6 +24,16 @@ variable "terraform_iam_policy_name_prefix" {
 #---------------------------------------------------------------------------------------------------
 # KMS Key for Encrypting S3 Buckets
 #---------------------------------------------------------------------------------------------------
+variable "kms_key_alias" {
+  description = "The display name of the alias."
+  default     = null
+}
+
+variable "kms_key_replica_alias" {
+  description = "The display name of the replica alias."
+  default     = null
+}
+
 variable "kms_key_description" {
   description = "The description of the key as viewed in AWS console."
   default     = "The key used to encrypt the remote state bucket."

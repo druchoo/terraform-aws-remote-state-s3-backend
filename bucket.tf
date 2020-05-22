@@ -14,6 +14,13 @@ resource "aws_kms_key" "this" {
   tags = var.tags
 }
 
+resource "aws_kms_alias" "this" {
+  count = var.kms_key_alias == null ? 0 : 1
+
+  name          = "alias/${var.kms_key_alias}"
+  target_key_id = aws_kms_key.this.key_id
+}
+
 resource "aws_kms_key" "replica" {
   provider = aws.replica
 
@@ -22,6 +29,14 @@ resource "aws_kms_key" "replica" {
   enable_key_rotation     = var.kms_key_enable_key_rotation
 
   tags = var.tags
+}
+
+resource "aws_kms_alias" "replica" {
+  count    = var.kms_key_alias == null ? 0 : 1
+  provider = aws.replica
+
+  name          = "alias/${var.kms_key_replica_alias}"
+  target_key_id = aws_kms_key.replica.key_id
 }
 
 #---------------------------------------------------------------------------------------------------
